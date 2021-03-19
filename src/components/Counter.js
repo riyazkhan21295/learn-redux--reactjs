@@ -8,6 +8,7 @@ const Counter = props => {
 
     return (
         <section className='counter'>
+            <h1>Counter App - Redux Toolkit</h1>
             <p>Clicked: {count} times</p>
             <p>
                 <button onClick={() => dispatch(incrementBy(1))}>Increment By 1</button>
