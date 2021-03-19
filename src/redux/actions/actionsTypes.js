@@ -1,4 +1,0 @@
-export const COUNTER = {
-    INCREMENT: 'INCREMENT',
-    DECREMENT: 'DECREMENT',
-};

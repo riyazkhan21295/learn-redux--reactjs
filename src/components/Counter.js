@@ -1,56 +1,22 @@
-import { useState } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
-import * as actions from '../redux/actions/index';
+import { incrementBy, decrementBy } from '../redux/slice/counterSlice';
 
 const Counter = props => {
-    const [isAsyncIncrementClick, setIsAsyncIncrementClick] = useState(false);
-
-    const increment = () => {
-        props.onIncrement();
-    };
-
-    const decrement = () => {
-        props.onDecrement();
-    };
-
-    const incrementAsync = () => {
-        setIsAsyncIncrementClick(true);
-
-        setTimeout(() => {
-            increment();
-            setIsAsyncIncrementClick(false);
-        }, 1000);
-    };
+    const count = useSelector(state => state.counter.value);
+    const dispatch = useDispatch();
 
     return (
         <section className='counter'>
-            <p>Clicked: {props.counter.value} times</p>
+            <p>Clicked: {count} times</p>
             <p>
-                <button onClick={increment} disabled={isAsyncIncrementClick}>
-                    +
-                </button>
-                <button onClick={decrement} disabled={isAsyncIncrementClick}>
-                    -
-                </button>
-                <button disabled={isAsyncIncrementClick || props.counter.value % 2 === 0}>Increment if odd</button>
-                <button onClick={incrementAsync}>Increment async</button>
+                <button onClick={() => dispatch(incrementBy(1))}>Increment By 1</button>
+                <button onClick={() => dispatch(decrementBy(1))}>Decrement By 1</button>
+                <button onClick={() => dispatch(incrementBy(5))}>Increment By 5</button>
+                <button onClick={() => dispatch(decrementBy(5))}>Decrement By 5</button>
             </p>
         </section>
     );
 };
 
-const mapStateToProps = state => {
-    return {
-        counter: state.counter,
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        onIncrement: () => dispatch(actions.increment()),
-        onDecrement: () => dispatch(actions.decrement()),
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Counter);
+export default Counter;
