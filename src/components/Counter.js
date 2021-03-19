@@ -25,6 +25,7 @@ const Counter = props => {
 
     return (
         <section className='counter'>
+            <h1>Counter App - Redux</h1>
             <p>Clicked: {props.counter.value} times</p>
             <p>
                 <button onClick={increment} disabled={isAsyncIncrementClick}>
