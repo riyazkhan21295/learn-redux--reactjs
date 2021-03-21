@@ -1,8 +1,13 @@
-const App = () => {
+import AddTodo from './containers/AddTodo';
+import TodoList from './containers/TodoList';
+import TodoFilter from './containers/TodoFilter';
+
+const App = props => {
     return (
         <>
-            <h1>Learn Redux</h1>
-            <hr />
+            <AddTodo />
+            <TodoList />
+            <TodoFilter />
         </>
     );
 };
