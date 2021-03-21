@@ -1,17 +1,18 @@
 import { useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import * as actionCreators from '../redux/actions/indexActions';
+import * as actionCreators from '../redux/indexActions';
 
 const AddTodo = props => {
     const [todo, setTodo] = useState('');
+    const dispatch = useDispatch();
 
     const handleFormSubmit = event => {
         event.preventDefault();
 
         if (!todo.trim()) return;
 
-        props.dispatch(actionCreators.addTodo(todo));
+        dispatch(actionCreators.addTodo({ text: todo }));
 
         setTodo('');
     };
@@ -26,4 +27,4 @@ const AddTodo = props => {
     );
 };
 
-export default connect()(AddTodo);
+export default AddTodo;

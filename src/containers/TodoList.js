@@ -1,27 +1,29 @@
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import * as actionTypes from '../redux/actions/actionTypes';
+import * as filterTypes from '../filterTypes';
 
-import TodoList from '../components/TodoList';
+import TodoItem from '../components/TodoItem';
 
 const getVisibleTodoList = (todoList, filter) => {
     switch (filter) {
-        case actionTypes.SHOW_ACTIVE_TODO:
+        case filterTypes.SHOW_ACTIVE_TODO:
             return todoList.filter(todo => !todo.completed);
 
-        case actionTypes.SHOW_COMPLETED_TODO:
+        case filterTypes.SHOW_COMPLETED_TODO:
             return todoList.filter(todo => todo.completed);
 
-        case actionTypes.SHOW_ALL_TODO:
+        case filterTypes.SHOW_ALL_TODO:
         default:
             return todoList;
     }
 };
 
-const mapStateToProps = state => {
-    return {
-        todoList: getVisibleTodoList(state.todo, state.filter),
-    };
+const TodoList = props => {
+    const todoList = useSelector(state => getVisibleTodoList(state.todo, state.filter));
+
+    const renderTodoList = todoList.map(todo => <TodoItem key={todo.id} {...todo} />);
+
+    return <ul>{renderTodoList}</ul>;
 };
 
-export default connect(mapStateToProps, null)(TodoList);
+export default TodoList;
